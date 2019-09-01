@@ -34,7 +34,10 @@ export default class Home extends Vue {
     axios.get(API_URL)
       .then((res: AxiosResponse<IResponse>) => {
         this.restaurantData = res.data.items;
-      });
+      })
+      .catch(() => {
+        alert('error');
+      });;
   }
 }
 </script>
