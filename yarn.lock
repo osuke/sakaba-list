@@ -630,6 +630,10 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
+"@mdi/font@^4.2.95":
+  version "4.2.95"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-4.2.95.tgz#7fd524746979a37dc7c3fd7a9f9cea1bf58205ba"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

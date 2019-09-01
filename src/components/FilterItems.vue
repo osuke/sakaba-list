@@ -1,25 +1,38 @@
 <template>
-  <div>
-    <div>
-      <select v-model="pref01">
-        <option value="">選択してください</option>
-        <option v-for="(pref, index) in prefs" :key="`pref-${index}`" :value="pref">{{ pref }}</option>
-      </select>
-      <div v-if="pref01 === '東京'">
-        <select v-model="pref02">
-          <option value="">選択してください</option>
-          <option v-for="(city, index) in tokyo" :key="`city-${index}`" :value="city">{{ city }}</option>
-        </select>
-      </div>
-      <div
+  <v-container fluid>
+    <v-row align="center">
+      <v-col class="d-flex" cols="12" xl="6">
+        <v-select
+          v-model="pref01"
+          :items="prefs"
+          label="エリアを選択"
+          hide-details="true"
+          outlined
+        ></v-select>
+      </v-col>
+      <v-col v-if="pref01 === '東京'" class="d-flex" cols="12" xl="6">
+        <v-select
+          v-model="pref02"
+          :items="tokyo"
+          label="エリアを選択"
+          hide-details="true"
+          outlined
+        ></v-select>
+      </v-col>
+
+      <v-col
         v-if="(pref01.length > 0 && pref01 !== '東京') || (pref02.length > 0 && pref01 === '東京')"
       >
-        <article v-for="restaurant in result" :key="`restaurant-${restaurant.url}`">
-          <a :href="restaurant.url" target="_blank">{{ restaurant.name }}</a>
-        </article>
-      </div>
-    </div>
-  </div>
+        <v-list-item v-for="restaurant in result" :key="`restaurant-${restaurant.url}`">
+          <v-list-item-content>
+            <v-list-item-title>
+              <a :href="restaurant.url" target="_blank">{{ restaurant.name }}</a>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -64,7 +77,7 @@ interface ISortedData {
 }
 
 @Component
-export default class HelloWorld extends Vue {
+export default class FilterItems extends Vue {
   @Prop() private restaurantData!: IRestaurant[];
   private tokyo: string[] = tokyo;
   private pref01: string = '';
@@ -106,18 +119,4 @@ export default class HelloWorld extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>
