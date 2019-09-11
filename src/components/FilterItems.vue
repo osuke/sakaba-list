@@ -71,11 +71,6 @@ const tokyo: string[] = [
   '東京都（23区以外）',
 ];
 
-interface ISortedData {
-  pref: '東京';
-  items: IRestaurant[];
-}
-
 @Component
 export default class FilterItems extends Vue {
   @Prop() private restaurantData!: IRestaurant[];

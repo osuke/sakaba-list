@@ -37,7 +37,7 @@ export default class Home extends Vue {
       })
       .catch(() => {
         alert('error');
-      });;
+      });
   }
 }
 </script>
