@@ -6,7 +6,7 @@
           v-model="pref01"
           :items="prefs"
           label="エリアを選択"
-          hide-details="true"
+          hide-details
           outlined
         ></v-select>
       </v-col>
@@ -15,7 +15,7 @@
           v-model="pref02"
           :items="tokyo"
           label="エリアを選択"
-          hide-details="true"
+          hide-details
           outlined
         ></v-select>
       </v-col>
@@ -23,13 +23,13 @@
       <v-col
         v-if="(pref01.length > 0 && pref01 !== '東京') || (pref02.length > 0 && pref01 === '東京')"
       >
-        <v-list-item v-for="restaurant in result" :key="`restaurant-${restaurant.url}`">
-          <v-list-item-content>
-            <v-list-item-title>
-              <a :href="restaurant.url" target="_blank">{{ restaurant.name }}</a>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <FilterItem
+          v-for="restaurant in result"
+          :key="`restaurant-${restaurant.url}`"
+          :id="restaurant.id"
+          :url="restaurant.url"
+          :name="restaurant.name"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -37,8 +37,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import FilterItem from '@/components/FilterItem.vue';
 
 export interface IRestaurant {
+  id: string;
   area: string;
   name: string;
   url: string;
@@ -71,7 +73,11 @@ const tokyo: string[] = [
   '東京都（23区以外）',
 ];
 
-@Component
+@Component({
+  components: {
+    FilterItem,
+  },
+})
 export default class FilterItems extends Vue {
   @Prop() private restaurantData!: IRestaurant[];
   private tokyo: string[] = tokyo;

@@ -16,7 +16,6 @@ interface IResponse {
   items: IRestaurant[];
 }
 
-
 @Component({
   components: {
     Header,
