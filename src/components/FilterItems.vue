@@ -38,13 +38,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import FilterItem from '@/components/FilterItem.vue';
-
-export interface IRestaurant {
-  id: string;
-  area: string;
-  name: string;
-  url: string;
-}
+import { IRestaurant } from '@/store';
 
 const tokyo: string[] = [
   '千代田区',
@@ -79,12 +73,13 @@ const tokyo: string[] = [
   },
 })
 export default class FilterItems extends Vue {
-  @Prop() private restaurantData!: IRestaurant[];
   private tokyo: string[] = tokyo;
   private pref01: string = '';
   private pref02: string = '';
 
   private updated() {
+    // tslint:disable-next-line
+    console.log(this.$store.state);
     if (this.pref01 !== '東京') {
       this.pref02 = '';
     }
@@ -93,7 +88,7 @@ export default class FilterItems extends Vue {
   private get prefs() {
     const areas: string[] = ['東京'];
 
-    this.restaurantData.forEach((restaurant) => {
+    this.$store.state.restaurant.items.forEach((restaurant: IRestaurant) => {
       if (areas.indexOf(restaurant.area) === -1 && tokyo.indexOf(restaurant.area) === -1) {
         areas.push(restaurant.area);
       }
@@ -111,7 +106,9 @@ export default class FilterItems extends Vue {
       area = this.pref02;
     }
 
-    const restaurants = this.restaurantData.filter((restaurant) => restaurant.area === area);
+    const restaurants = this.$store.state.restaurant.items.filter((restaurant: IRestaurant) => {
+      return restaurant.area === area;
+    });
 
     return restaurants;
   }
