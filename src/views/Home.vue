@@ -17,8 +17,5 @@ import Header from '@/components/Header.vue';
   },
 })
 export default class Home extends Vue {
-  private created() {
-    this.$store.dispatch('setItems');
-  }
 }
 </script>
