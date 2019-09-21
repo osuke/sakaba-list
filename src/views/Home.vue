@@ -1,7 +1,11 @@
 <template>
   <div class="home">
     <Header />
-    <FilterItems />
+    <v-content>
+      <v-container fluid>
+        <FilterItems />
+      </v-container>
+    </v-content>
   </div>
 </template>
 

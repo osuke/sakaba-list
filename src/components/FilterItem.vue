@@ -1,13 +1,16 @@
 <template>
-  <v-list-item>
-    <v-list-item-content>
-      <v-list-item-title>
-        <div>{{ name }}</div>
-        <div><router-link :to="pageUrl">店舗を検索</router-link></div>
-        <div><a :href="url" target="_blank">番組ページ</a></div>
-      </v-list-item-title>
-    </v-list-item-content>
-  </v-list-item>
+  <v-card class="mb-2" flat>
+    <v-card-title class="subtitle-1">{{name}}</v-card-title>
+    <div class="d-flex justify-end">
+      <v-card-actions>
+        <router-link class="subtitle-2" :to="pageUrl">店舗を検索</router-link>
+      </v-card-actions>
+      <v-card-actions>
+        <v-icon class="mr-1" small>mdi-open-in-new</v-icon>
+        <a class="subtitle-2" :href="url" target="_blank">番組ページ</a>
+      </v-card-actions>
+    </div>
+  </v-card>
 </template>
 
 <script lang="ts">

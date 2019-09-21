@@ -1,38 +1,36 @@
 <template>
-  <v-container fluid>
-    <v-row align="center">
-      <v-col class="d-flex" cols="12" xl="6">
-        <v-select
-          v-model="pref01"
-          :items="prefs"
-          label="エリアを選択"
-          hide-details
-          outlined
-        ></v-select>
-      </v-col>
-      <v-col v-if="pref01 === '東京'" class="d-flex" cols="12" xl="6">
-        <v-select
-          v-model="pref02"
-          :items="tokyo"
-          label="エリアを選択"
-          hide-details
-          outlined
-        ></v-select>
-      </v-col>
+  <v-row align="center">
+    <v-col class="d-flex" cols="12" xl="6">
+      <v-select
+        v-model="pref01"
+        :items="prefs"
+        label="エリアを選択"
+        hide-details
+        outlined
+      ></v-select>
+    </v-col>
+    <v-col v-if="pref01 === '東京'" class="d-flex" cols="12" xl="6">
+      <v-select
+        v-model="pref02"
+        :items="tokyo"
+        label="エリアを選択"
+        hide-details
+        outlined
+      ></v-select>
+    </v-col>
 
-      <v-col
-        v-if="(pref01.length > 0 && pref01 !== '東京') || (pref02.length > 0 && pref01 === '東京')"
-      >
-        <FilterItem
-          v-for="restaurant in result"
-          :key="`restaurant-${restaurant.url}`"
-          :id="restaurant.id"
-          :url="restaurant.url"
-          :name="restaurant.name"
-        />
-      </v-col>
-    </v-row>
-  </v-container>
+    <v-col
+      v-if="(pref01.length > 0 && pref01 !== '東京') || (pref02.length > 0 && pref01 === '東京')"
+    >
+      <FilterItem
+        v-for="restaurant in result"
+        :key="`restaurant-${restaurant.url}`"
+        :id="restaurant.id"
+        :url="restaurant.url"
+        :name="restaurant.name"
+      />
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
