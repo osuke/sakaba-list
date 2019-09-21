@@ -1,48 +1,42 @@
 <template>
-  <v-container fluid>
-    <v-row align="center">
-      <v-col class="d-flex" cols="12" xl="6">
-        <v-select
-          v-model="pref01"
-          :items="prefs"
-          label="エリアを選択"
-          hide-details="true"
-          outlined
-        ></v-select>
-      </v-col>
-      <v-col v-if="pref01 === '東京'" class="d-flex" cols="12" xl="6">
-        <v-select
-          v-model="pref02"
-          :items="tokyo"
-          label="エリアを選択"
-          hide-details="true"
-          outlined
-        ></v-select>
-      </v-col>
+  <v-row align="center">
+    <v-col class="d-flex" cols="12" xl="6">
+      <v-select
+        v-model="pref01"
+        :items="prefs"
+        label="エリアを選択"
+        hide-details
+        outlined
+      ></v-select>
+    </v-col>
+    <v-col v-if="pref01 === '東京'" class="d-flex" cols="12" xl="6">
+      <v-select
+        v-model="pref02"
+        :items="tokyo"
+        label="エリアを選択"
+        hide-details
+        outlined
+      ></v-select>
+    </v-col>
 
-      <v-col
-        v-if="(pref01.length > 0 && pref01 !== '東京') || (pref02.length > 0 && pref01 === '東京')"
-      >
-        <v-list-item v-for="restaurant in result" :key="`restaurant-${restaurant.url}`">
-          <v-list-item-content>
-            <v-list-item-title>
-              <a :href="restaurant.url" target="_blank">{{ restaurant.name }}</a>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-col>
-    </v-row>
-  </v-container>
+    <v-col
+      v-if="(pref01.length > 0 && pref01 !== '東京') || (pref02.length > 0 && pref01 === '東京')"
+    >
+      <FilterItem
+        v-for="restaurant in result"
+        :key="`restaurant-${restaurant.url}`"
+        :id="restaurant.id"
+        :url="restaurant.url"
+        :name="restaurant.name"
+      />
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
-export interface IRestaurant {
-  area: string;
-  name: string;
-  url: string;
-}
+import FilterItem from '@/components/FilterItem.vue';
+import { IRestaurant } from '@/api/fetchSakabaList';
 
 const tokyo: string[] = [
   '千代田区',
@@ -71,19 +65,19 @@ const tokyo: string[] = [
   '東京都（23区以外）',
 ];
 
-interface ISortedData {
-  pref: '東京';
-  items: IRestaurant[];
-}
-
-@Component
+@Component({
+  components: {
+    FilterItem,
+  },
+})
 export default class FilterItems extends Vue {
-  @Prop() private restaurantData!: IRestaurant[];
   private tokyo: string[] = tokyo;
   private pref01: string = '';
   private pref02: string = '';
 
   private updated() {
+    // tslint:disable-next-line
+    console.log(this.$store.state);
     if (this.pref01 !== '東京') {
       this.pref02 = '';
     }
@@ -92,7 +86,7 @@ export default class FilterItems extends Vue {
   private get prefs() {
     const areas: string[] = ['東京'];
 
-    this.restaurantData.forEach((restaurant) => {
+    this.$store.state.restaurant.items.forEach((restaurant: IRestaurant) => {
       if (areas.indexOf(restaurant.area) === -1 && tokyo.indexOf(restaurant.area) === -1) {
         areas.push(restaurant.area);
       }
@@ -110,7 +104,9 @@ export default class FilterItems extends Vue {
       area = this.pref02;
     }
 
-    const restaurants = this.restaurantData.filter((restaurant) => restaurant.area === area);
+    const restaurants = this.$store.state.restaurant.items.filter((restaurant: IRestaurant) => {
+      return restaurant.area === area;
+    });
 
     return restaurants;
   }
