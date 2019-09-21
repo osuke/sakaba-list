@@ -1,5 +1,9 @@
 <template>
-  <v-toolbar class="primary"><v-toolbar-title class="title">酒場リスト</v-toolbar-title></v-toolbar>
+  <v-toolbar class="primary">
+    <router-link to="/">
+      <v-toolbar-title class="title">酒場リスト</v-toolbar-title>
+    </router-link>
+  </v-toolbar>
 </template>
 
 <script lang="ts">
