@@ -38,7 +38,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import FilterItem from '@/components/FilterItem.vue';
-import { IRestaurant } from '@/store';
+import { IRestaurant } from '@/api/fetchSakabaList';
 
 const tokyo: string[] = [
   '千代田区',

@@ -1,12 +1,13 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
-import { fetchSearchResult } from '@/api/fetchSearchResult';
+import { fetchSearchResult, ISearchResultItem } from '@/api/fetchSearchResult';
+import { IRestaurant } from '@/api/fetchSakabaList';
 
 @Module
 export class Result extends VuexModule {
-  public items: any[] = [];
+  public items: ISearchResultItem[] = [];
 
   @Action
-  public async setResultItems(restaurant: any) {
+  public async setResultItems(restaurant: IRestaurant) {
     let strArr: string[] = restaurant.name.split('「');
     strArr = strArr[strArr.length - 1].split('」');
 
@@ -18,9 +19,7 @@ export class Result extends VuexModule {
   }
 
   @Mutation
-  private SET_RESULT_ITEMS(data: any) {
-    // tslint:disable-next-line
-    console.log(data);
+  private SET_RESULT_ITEMS(data: ISearchResultItem[]) {
     this.items = data;
   }
 }

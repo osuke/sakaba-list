@@ -1,17 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
-import { fetchSakabaList } from '@/api/fetchSakabaList';
+import { fetchSakabaList, IRestaurant } from '@/api/fetchSakabaList';
 import { Result } from '@/store/Result';
 
 Vue.use(Vuex);
-
-export interface IRestaurant {
-  id: string;
-  area: string;
-  name: string;
-  url: string;
-}
 
 @Module
 class Restaurant extends VuexModule {
