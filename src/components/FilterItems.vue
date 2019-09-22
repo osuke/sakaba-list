@@ -76,8 +76,6 @@ export default class FilterItems extends Vue {
   private pref02: string = '';
 
   private updated() {
-    // tslint:disable-next-line
-    console.log(this.$store.state);
     if (this.pref01 !== '東京') {
       this.pref02 = '';
     }

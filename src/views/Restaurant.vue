@@ -33,6 +33,13 @@
             </a>
           </v-card-text>
         </v-card>
+
+        <v-card
+          v-if="result.length === 0"
+          flat
+        >
+          <div class="subtitle-1 pt-2 pb-2">該当するお店は0件でした。</div>
+        </v-card>
       </v-container>
     </v-content>
   </div>
