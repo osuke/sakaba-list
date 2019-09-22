@@ -11,7 +11,10 @@ export class Result extends VuexModule {
     let strArr: string[] = restaurant.name.split('「');
     strArr = strArr[strArr.length - 1].split('」');
 
-    const data = await fetchSearchResult(strArr[0]).catch(() => { this.context.commit('APP_ERROR'); });
+    const data = await fetchSearchResult(strArr[0]).catch(() => {
+      // tslint:disable-next-line
+      console.log('404');
+    });
 
     if (data) {
       this.context.commit('SET_RESULT_ITEMS', data.rest);
