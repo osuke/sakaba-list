@@ -3,7 +3,7 @@
     <Header />
     <v-content>
       <v-container fluid>
-        <FilterItems />
+        <AreaFilter />
       </v-container>
     </v-content>
   </div>
@@ -11,13 +11,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import FilterItems from '@/components/FilterItems.vue';
+import AreaFilter from '@/containers/AreaFilter.vue';
 import Header from '@/components/Header.vue';
 
 @Component({
   components: {
     Header,
-    FilterItems,
+    AreaFilter,
   },
 })
 export default class Home extends Vue {
